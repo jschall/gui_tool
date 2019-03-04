@@ -55,6 +55,7 @@ class LocalNodeWidget(QGroupBox):
         self.setLayout(layout)
 
         flash(self, 'Some functions will be unavailable unless local node ID is set')
+        self._on_node_id_apply_clicked()
 
     def close(self):
         self._node_id_collector.close()

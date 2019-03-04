@@ -77,6 +77,7 @@ class DynamicNodeIDAllocatorWidget(QGroupBox):
         layout.addLayout(controls_layout)
         layout.addWidget(self._allocation_table, 1)
         self.setLayout(layout)
+        self._on_start_stop_button()
 
     def _on_select_database_file(self):
         # TODO: It would be nice to rename the 'Save' button into something more appropriate like 'Open'

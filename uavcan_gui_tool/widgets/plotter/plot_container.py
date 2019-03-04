@@ -9,9 +9,10 @@
 import logging
 from PyQt5.QtWidgets import QDockWidget, QVBoxLayout, QHBoxLayout, QWidget, QLabel
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QColor
 from .. import make_icon_button
 from .value_extractor_views import NewValueExtractorWindow, ExtractorWidget
-
+from .value_extractor import Extractor, Expression
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +66,21 @@ class PlotContainerWidget(QDockWidget):
 
         self.setMinimumWidth(700)
         self.setMinimumHeight(400)
+
+    def add_extractor(self, data_type_name, extraction_expression_str, filter_expressions_str, color):
+        extractor = Extractor(data_type_name, Expression(extraction_expression_str), [Expression(x) for x in filter_expressions_str], QColor(color))
+
+        self._extractors.append(extractor)
+        widget = ExtractorWidget(self, extractor)
+        self._extractors_layout.addWidget(widget)
+
+        def remove():
+            self._plot_area.remove_curves_provided_by_extractor(extractor)
+            self._extractors.remove(extractor)
+            self._extractors_layout.removeWidget(widget)
+
+        widget.on_remove = remove
+
 
     def _do_new_extractor(self):
         if self._how_to_label is not None:

@@ -227,6 +227,7 @@ class MainWindow(QMainWindow):
                                                           make_vbox(self._log_message_widget),
                                                           make_vbox(self._dynamic_node_id_allocation_widget,
                                                                     stretch_index=1))))
+        self._plotter_manager.spawn_plotter()
 
     def _try_spawn_can_adapter_control_panel(self):
         try:

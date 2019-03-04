@@ -78,6 +78,22 @@ class PlotterWindow(QMainWindow):
             new_plot_action.triggered.connect(partial(self._do_add_new_plot, pl_name))
             plot_menu.addAction(new_plot_action)
 
+        self._do_add_new_plot('Y-T plot')
+        self._plot_containers[-1].add_extractor('com.hex.equipment.flow.Measurement',
+                                                'msg.flow_integral[0]/msg.integration_interval', [], 0xff0000)
+        self._plot_containers[-1].add_extractor('com.hex.equipment.flow.Measurement',
+                                                'msg.rate_gyro_integral[0]/msg.integration_interval', [], 0x00ff00)
+
+        self._do_add_new_plot('Y-T plot')
+        self._plot_containers[-1].add_extractor('com.hex.equipment.flow.Measurement',
+                                                'msg.flow_integral[1]/msg.integration_interval', [], 0xff0000)
+        self._plot_containers[-1].add_extractor('com.hex.equipment.flow.Measurement',
+                                                'msg.rate_gyro_integral[1]/msg.integration_interval', [], 0x00ff00)
+
+        self._do_add_new_plot('Y-T plot')
+        self._plot_containers[-1].add_extractor('uavcan.equipment.range_sensor.Measurement',
+                                                'msg.range', [], 0xff0000)
+
         #
         # Window stuff
         #
